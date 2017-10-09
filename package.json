@@ -1,6 +1,6 @@
 {
   "name": "ixnay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple promise based IndexedDb utilities.",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,8 @@
   },
   "keywords": [
     "IndexedDb",
-	"Promise",
-	"Utilities"
+    "Promise",
+    "Utilities"
   ],
   "author": "emelent",
   "license": "MIT",
