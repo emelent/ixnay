@@ -99,7 +99,7 @@ const insertAll = (db, storeName, entries) => {
  * 
  * @return {function}
  */
-export const deleteAll = db => storeName => new Promise(
+const deleteAll = db => storeName => new Promise(
 	(resolve, reject) => {
 		const store = getObjectStore(db, storeName, 'readwrite')
 		const req = store.clear()
@@ -113,7 +113,7 @@ export const deleteAll = db => storeName => new Promise(
  * Delete entry by id.
  * @param {*} db 
  */
-export const deleteById = db => (storeName, id) => new Promise(
+const deleteById = db => (storeName, id) => new Promise(
 	(resolve, reject) => {
 		const store = getObjectStore(db, storeName, 'readwrite')
 		const req = store.delete(id)
@@ -129,7 +129,7 @@ export const deleteById = db => (storeName, id) => new Promise(
  * 
  * @return {function}
  */
-export const insert = db => (storeName, data) => Array.isArray(data)? 
+const insert = db => (storeName, data) => Array.isArray(data)? 
 	insertAll(db, storeName, data):insertOne(db, storeName, data)
 
 /**
@@ -138,7 +138,7 @@ export const insert = db => (storeName, data) => Array.isArray(data)?
  * 
  * @return {function}
  */
-export const fetchById = db => (storeName, id) => new Promise(
+const fetchById = db => (storeName, id) => new Promise(
 	(resolve, reject) => {
 		const store = getObjectStore(db, storeName, 'readonly')
 		const req = store.get(id)
@@ -153,7 +153,7 @@ export const fetchById = db => (storeName, id) => new Promise(
  * 
  * @return {function}
  */
-export const updateById = db => (storeName, id, data) => new Promise(
+const updateById = db => (storeName, id, data) => new Promise(
 	(resolve, reject) => {
 		const store = getObjectStore(db, storeName, 'readwrite')
 		const req = store.get(id)
@@ -173,7 +173,7 @@ export const updateById = db => (storeName, id, data) => new Promise(
  * 
  * @return {function}
  */
-export const fetchAll = db => storeName => new Promise(
+const fetchAll = db => storeName => new Promise(
 	(resolve, reject) => {
 		const store = getObjectStore(db, storeName, 'readonly')
 		const req = store.getAll()
@@ -188,7 +188,7 @@ export const fetchAll = db => storeName => new Promise(
  * 
  * @return {function}
  */
-export const fetchByIndex = db => (storeName, index, val) => new Promise(
+const fetchByIndex = db => (storeName, index, val) => new Promise(
 	(resolve, reject) => {
 		const store = getObjectStore(db, storeName, 'readonly')
 		const req = store.index(index).getAll(val)
@@ -222,7 +222,7 @@ const getConnection = db => () => db
  * 
  * @return {Promise}
  */
-export const openDb = (dbName, dbVersion, onUpgrade) => new Promise(
+const openDb = (dbName, dbVersion, onUpgrade) => new Promise(
 	(resolve, reject) => {
 		const req = indexedDB.open(dbName, dbVersion)
 		req.onupgradeneeded = onUpgrade
@@ -240,7 +240,7 @@ export const openDb = (dbName, dbVersion, onUpgrade) => new Promise(
  * 
  * @return {Promise}
  */
-export const connect = (dbName, dbVersion, onUpgrade) => new Promise(
+const connect = (dbName, dbVersion, onUpgrade) => new Promise(
 	(resolve, reject) => {
 		const req = indexedDB.open(dbName, dbVersion)
 		req.onupgradeneeded = onUpgrade
@@ -258,3 +258,15 @@ export const connect = (dbName, dbVersion, onUpgrade) => new Promise(
 		req.onerror = err => reject(err)
 	}
 )
+
+module.exports = {
+	connect,
+	openDb,
+	deleteById,
+	deleteAll,
+	insert,
+	updateById,
+	fetchById,
+	fetchByIndex,
+	fetchAll
+}
